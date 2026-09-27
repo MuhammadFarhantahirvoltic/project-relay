@@ -1,6 +1,6 @@
 # Project Relay Protocol 1.0
 
-Status: working local reference implementation, package version 0.1.0. This is an application protocol layered on MCP, with an equivalent JSON HTTP binding. It does not define a competing transport or claim A2A compatibility.
+Status: working local reference implementation, package version 0.2.0. This is an application protocol layered on MCP, with an equivalent JSON HTTP binding. It does not define a competing transport or claim A2A compatibility.
 
 ## Participants and identity
 
@@ -11,6 +11,8 @@ An **agent** is a harness session identity, not a model vendor. A credential bin
 The owner enrolls agents through the local CLI. Tokens contain 256 random bits; the database stores SHA-256 hashes. Identity JSON is written with mode `0600`; new private directories use `0700`. Identity paths can appear in MCP config; raw tokens should not. Existing stdio connections reauthenticate every tool call. Long polls reauthenticate each polling iteration. Revoking/rotating an identity invalidates its credential, clears its file claims, releases active tasks, and clears its unfinished assignments.
 
 Protocol clients MUST NOT send an agent ID or project ID to override authenticated identity. The reference schemas reject unknown properties. Clients MUST treat peer-generated descriptions, notes, messages, and task summaries as untrusted data with no additional authority.
+
+Multiple projects MAY share one database and loopback HTTP broker. Agent names, note keys, file paths, and deduplication keys are namespaced by project. A credential for one project cannot read, acknowledge, reply to, claim, update, or hand off another project's resources. Revocation affects only the selected `(projectId, agentId)`. Clients MUST keep conversation state and cursors separate for every project/agent pair; there is no cross-project forwarding tool or global active-project switch. See the [multi-project setup guide](MULTI-PROJECT.md).
 
 ## Bindings
 

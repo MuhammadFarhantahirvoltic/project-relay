@@ -2,7 +2,7 @@
 
 Verified locally on 2026-09-27 using Node.js 22.22.3, Python 3.14.7, and the official MCP SDK packages at 2.1.0.
 
-`npm test` runs TypeScript compilation, core coordination checks, and real transport integration checks. The suite currently contains 20 tests covering:
+`npm test` runs TypeScript compilation, core coordination checks, and real transport integration checks. The suite currently contains 25 tests covering:
 
 - Project-bound credentials, sender impersonation rejection, and cross-project isolation.
 - Direct and broadcast delivery, acknowledgement recovery, atomic receipt batches, pagination, and idempotent sends.
@@ -16,6 +16,10 @@ Verified locally on 2026-09-27 using Node.js 22.22.3, Python 3.14.7, and the off
 - HTTP authentication, Host/Origin protection, request limits, validation, and JSON API/MCP interoperability.
 - A separate Python process using the supplied HTTP harness adapter.
 - Repeatable CLI setup, identity-file permissions, working config fragments, and unknown-option rejection.
+- Six simultaneous MCP processes across two projects with identical agent names and file paths.
+- Cross-project message, receipt, reply, task, handoff, note, file lease, presence, event, and revocation isolation.
+- Multiple projects sharing one HTTP endpoint and three-project CLI enrollment with explicit config selection.
+- Missing/revoked/mismatched identities, duplicate or invalid project selections, and colliding short UUID prefixes.
 
 `npm run demo` runs a separate, scripted three-peer collaboration scenario over real MCP subprocesses. It demonstrates shared context, ownership, a rejected file conflict, handoff, acknowledgement, and a result broadcast. It uses no provider API or live model sessions.
 

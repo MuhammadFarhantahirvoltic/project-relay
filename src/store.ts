@@ -126,6 +126,12 @@ export class Store {
       return publicRow(this.one('SELECT * FROM projects WHERE id=?', id)!);
     });
   }
+  // Local administration only. Agent tools never enumerate other projects.
+  listProjects() {
+    return this.all(`SELECT p.*,
+      (SELECT count(*) FROM agents a WHERE a.project_id=p.id AND a.revoked_at IS NULL) AS active_agents
+      FROM projects p ORDER BY p.name COLLATE NOCASE,p.root`).map(publicRow);
+  }
   issueIdentity(projectId: string, agentId: string, rotate = false): Identity {
     requireThat(slug.test(agentId), 'INVALID_AGENT', 'Agent IDs must use lowercase letters, digits, dots, underscores, or hyphens (1–64 characters).');
     requireThat(this.one('SELECT id FROM projects WHERE id=?', projectId), 'PROJECT_NOT_FOUND', 'Unknown project.', 404);

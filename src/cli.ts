@@ -8,15 +8,17 @@ import { Store } from './store.js';
 import { AGENT_INSTRUCTIONS, dispatch, toolCatalog } from './tools.js';
 import { createMcpServer } from './mcp.js';
 import { startHttp } from './http.js';
-import { clientConfig, identityPath, openIdentity, privateWrite } from './setup.js';
+import { clientConfig, identityPath, openIdentity, privateWrite, projectConfigs } from './setup.js';
 import { errorBody, requireThat } from './errors.js';
 
 const HELP = `Project Relay — shared project coordination for independent agents
 
   init       --project PATH [--name NAME] [--agents claude-vscode,deepseek,gemini-antigravity] [--state DIR]
+  projects   [--state DIR]
   agent-add  --project-id UUID --agent ID [--rotate] [--state DIR]
   revoke     --project-id UUID --agent ID [--state DIR]
   config     --identity FILE [--format claude|antigravity|vscode|generic]
+  config     --agent ID --projects UUID,UUID [--format claude|antigravity|vscode|generic] [--state DIR]
   mcp        --identity FILE
   serve      [--state DIR] [--port 7331]
   call       --identity FILE --tool relay_status [--input '{}']
@@ -28,13 +30,15 @@ State defaults to ~/.project-relay. Each init creates a project, private identit
 files, and ready-to-merge client config fragments. MCP stdio needs no daemon.
 serve binds 127.0.0.1 and provides POST /mcp plus /v1/tools for custom harnesses.
 Configuration fragments are generated, never silently merged into host settings.
+Run init once per repository. Project conversations stay separate, even when
+the same agent names share one state directory and HTTP server.
 `;
 function print(value: unknown) { process.stdout.write(JSON.stringify(value, null, 2) + '\n'); }
 
 async function main() {
   const { positionals, values } = parseArgs({ allowPositionals: true, strict: true, options: {
     project: { type: 'string' }, name: { type: 'string' }, agents: { type: 'string' }, state: { type: 'string' },
-    'project-id': { type: 'string' }, agent: { type: 'string' }, identity: { type: 'string' }, format: { type: 'string' },
+    'project-id': { type: 'string' }, projects: { type: 'string' }, agent: { type: 'string' }, identity: { type: 'string' }, format: { type: 'string' },
     port: { type: 'string' }, tool: { type: 'string' }, input: { type: 'string' }, after: { type: 'string' },
     rotate: { type: 'boolean' }, help: { type: 'boolean', short: 'h' },
   } });
@@ -42,8 +46,8 @@ async function main() {
   if (!command || values.help || command === 'help') { process.stdout.write(HELP); return; }
   requireThat(positionals.length === 1, 'INVALID_ARGUMENT', 'Only one command is allowed.');
   const allowed: Record<string, string[]> = {
-    init: ['project', 'name', 'agents', 'state'], 'agent-add': ['project-id', 'agent', 'rotate', 'state'],
-    revoke: ['project-id', 'agent', 'state'], config: ['identity', 'format'], mcp: ['identity'],
+    init: ['project', 'name', 'agents', 'state'], projects: ['state'], 'agent-add': ['project-id', 'agent', 'rotate', 'state'],
+    revoke: ['project-id', 'agent', 'state'], config: ['identity', 'format', 'agent', 'projects', 'state'], mcp: ['identity'],
     serve: ['state', 'port'], call: ['identity', 'tool', 'input'], watch: ['identity', 'after'], catalog: [], demo: [],
   };
   requireThat(allowed[command], 'INVALID_COMMAND', 'Unknown command. Run with --help.');
@@ -54,6 +58,23 @@ async function main() {
   const state = resolve(values.state ?? join(homedir(), '.project-relay'));
   if (command === 'catalog') { print(toolCatalog()); return; }
   if (command === 'demo') { await (await import('./demo.js')).runDemo(); return; }
+  if (command === 'projects') {
+    const database = join(state, 'relay.sqlite');
+    if (!existsSync(database)) { print({ state, projects: [] }); return; }
+    const store = new Store(database);
+    try { print({ state, projects: store.listProjects() }); }
+    finally { store.close(); }
+    return;
+  }
+  if (command === 'config') {
+    if (values.identity !== undefined) {
+      requireThat(values.agent === undefined && values.projects === undefined && values.state === undefined,
+        'INVALID_ARGUMENT', 'Use --identity alone, or select --agent and --projects with optional --state.');
+    } else {
+      print(projectConfigs(state, need('agent'), need('projects').split(',').map(id => id.trim()), values.format ?? 'generic'));
+      return;
+    }
+  }
   if (command === 'init') {
     const root = realpathSync(resolve(need('project')));
     requireThat(statSync(root).isDirectory(), 'INVALID_PROJECT', 'Project path must be a directory.');

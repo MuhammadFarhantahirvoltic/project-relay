@@ -1,6 +1,6 @@
 {
   "name": "project-relay",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "license": "MIT",
   "description": "A local, model-independent project coordination protocol over MCP and HTTP.",
   "type": "module",
@@ -9,9 +9,29 @@
     "url": "git+https://github.com/MuhammadFarhantahirvoltic/project-relay.git"
   },
   "homepage": "https://muhammadfarhantahirvoltic.github.io/project-relay/",
-  "bugs": { "url": "https://github.com/MuhammadFarhantahirvoltic/project-relay/issues" },
-  "keywords": ["mcp", "mcp-server", "agents", "multi-agent", "claude", "deepseek", "gemini", "coordination"],
-  "files": ["dist/*.js", "dist/*.d.ts", "dist/*.js.map", "examples/harness_adapter.py", "docs/PROTOCOL.md", "docs/INTEGRATIONS.md", "LICENSE"],
+  "bugs": {
+    "url": "https://github.com/MuhammadFarhantahirvoltic/project-relay/issues"
+  },
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "agents",
+    "multi-agent",
+    "claude",
+    "deepseek",
+    "gemini",
+    "coordination"
+  ],
+  "files": [
+    "dist/*.js",
+    "dist/*.d.ts",
+    "dist/*.js.map",
+    "examples/harness_adapter.py",
+    "docs/PROTOCOL.md",
+    "docs/INTEGRATIONS.md",
+    "LICENSE",
+    "docs/MULTI-PROJECT.md"
+  ],
   "bin": {
     "project-relay": "dist/cli.js"
   },
