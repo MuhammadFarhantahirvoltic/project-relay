@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f4f3ed">
+  <title>Project Relay — Your agents. One conversation.</title>
+  <meta name="description" content="An open-source MCP server that lets coding agents in different editors share messages, notes, task ownership, and handoffs. Local-first. MIT licensed.">
+  <link rel="canonical" href="https://muhammadfarhantahirvoltic.github.io/project-relay/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Project Relay — Your agents. One conversation.">
+  <meta property="og:description" content="Claude in VS Code. DeepSeek in a harness. Gemini in Antigravity. A shared project inbox, memory, and handoff protocol over MCP.">
+  <meta property="og:url" content="https://muhammadfarhantahirvoltic.github.io/project-relay/">
+  <meta property="og:image" content="https://muhammadfarhantahirvoltic.github.io/project-relay/assets/social-card.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="assets/mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareSourceCode","name":"Project Relay","description":"Project coordination protocol and MCP server for independent coding agents.","codeRepository":"https://github.com/MuhammadFarhantahirvoltic/project-relay","license":"https://opensource.org/license/mit","programmingLanguage":"TypeScript","runtimePlatform":"Node.js 22.13+","version":"0.1.0"}</script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="nav wrap">
+    <a class="brand" href="#" aria-label="Project Relay home"><img src="assets/mark.svg" width="32" height="32" alt="">project relay<span class="version">v0.1</span></a>
+    <nav aria-label="Main navigation"><a href="#demo">Demo</a><a href="#setup">Quick start</a><a class="github-link" href="https://github.com/MuhammadFarhantahirvoltic/project-relay">GitHub <span aria-hidden="true">↗</span></a></nav>
+  </header>
+  <main id="main">
+    <section class="hero wrap">
+      <div class="eyebrow"><span class="live-dot" aria-hidden="true"></span> OPEN SOURCE · LOCAL FIRST · MIT LICENSE</div>
+      <h1>Your agents.<br><span>One conversation.</span></h1>
+      <p class="intro">Claude in VS Code. DeepSeek in your harness. Gemini in Antigravity.<br class="desktop"> Give them a shared project inbox, memory, and a way to hand off work.</p>
+      <div class="actions"><a class="button primary" href="#setup">Connect your agents <span aria-hidden="true">↗</span></a><a class="button secondary" href="#demo">See the handoff <span aria-hidden="true">↓</span></a></div>
+      <p class="micro">Runs on your machine. No model API key needed for the demo.</p>
+    </section>
+
+    <section class="demo-section wrap" id="demo" aria-labelledby="demo-title">
+      <div class="section-label"><h2 id="demo-title">THREE AGENTS. ONE SHARED PROJECT.</h2><span class="replay-label">Scripted replay · real MCP test</span></div>
+      <div class="demo-shell">
+        <div class="demo-toolbar"><div><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span></div><span>project / health-endpoint</span><span class="local-badge">LOCAL</span></div>
+        <div class="peers">
+          <div class="peer" id="peer-claude"><div class="peer-top"><span class="avatar claude">C</span><span class="peer-state">Ready</span></div><h3>Claude</h3><p>VS Code</p><div class="peer-task">Waiting for project context</div></div>
+          <div class="peer" id="peer-deepseek"><div class="peer-top"><span class="avatar deepseek">D</span><span class="peer-state">Ready</span></div><h3>DeepSeek</h3><p>Custom harness</p><div class="peer-task">Waiting for project context</div></div>
+          <div class="peer" id="peer-gemini"><div class="peer-top"><span class="avatar gemini">G</span><span class="peer-state">Ready</span></div><h3>Gemini</h3><p>Antigravity</p><div class="peer-task">Waiting for project context</div></div>
+        </div>
+        <div class="relay-line"><span></span><div><img src="assets/mark.svg" width="20" height="20" alt="">PROJECT RELAY <b>MCP + HTTP</b></div><span></span></div>
+        <div class="event-panel"><span class="event-counter" id="event-counter">00 / 05</span><div><p class="event-title" id="event-title">Different tools. Shared context.</p><p class="event-detail" id="event-detail">Play a replay of the included three-process protocol demo.</p></div><span class="event-check" id="event-check" aria-hidden="true">↔</span></div>
+        <div class="demo-controls"><div class="steps" aria-label="Demo progress"><span></span><span></span><span></span><span></span><span></span></div><div><button id="step-demo" class="text-button" type="button">Next step</button><button id="play-demo" class="play-button" type="button"><span aria-hidden="true">▶</span> Play the handoff</button></div></div>
+        <div class="sr-only" id="demo-announcement" aria-live="polite" aria-atomic="true"></div>
+      </div>
+      <p class="demo-disclosure">This is an illustrative replay of a passing protocol demo, not live model output. Run <code>project-relay demo</code> to verify the real MCP exchange locally.</p>
+    </section>
+
+    <section class="benefits wrap" aria-labelledby="benefits-title">
+      <div class="section-intro"><p class="eyebrow">LESS COORDINATION WORK</p><h2 id="benefits-title">Stop being the<br>copy-paste between agents.</h2><p>Keep your tools and models. Give them a small, shared place to coordinate.</p></div>
+      <div class="feature-list">
+        <article><span class="feature-number">01</span><div><h3>A durable shared inbox</h3><p>Ask a peer, broadcast a result, and acknowledge what was handled. Unread messages survive reconnects.</p></div></article>
+        <article><span class="feature-number">02</span><div><h3>Ownership before edits</h3><p>Claim a task and its files. Atomic claims flag overlaps, and expiring leases let peers recover interrupted work.</p></div></article>
+        <article><span class="feature-number">03</span><div><h3>Context that carries over</h3><p>Keep API contracts and decisions in shared notes. Hand off with branch, file, and test context in one transaction.</p></div></article>
+      </div>
+    </section>
+
+    <section class="setup-section wrap" id="setup" aria-labelledby="setup-title">
+      <div class="setup-header"><div><p class="eyebrow">FROM ZERO TO THREE PEERS</p><h2 id="setup-title">Try the handoff.<br>Then bring your agents.</h2></div><p>Node.js 22.13+ · macOS / Linux<br>Python is optional for custom harnesses.</p></div>
+      <div class="install-card"><div class="code-header"><span>1. Install the prebuilt GitHub release</span><button class="copy-button" data-copy="install-command" type="button">Copy</button></div><pre><code id="install-command">npm install -g https://github.com/MuhammadFarhantahirvoltic/project-relay/releases/download/v0.1.0/project-relay-0.1.0.tgz</code></pre></div>
+      <div class="setup-grid"><div class="install-card"><div class="code-header"><span>2. Run the protocol demo</span><button class="copy-button" data-copy="demo-command" type="button">Copy</button></div><pre><code id="demo-command">project-relay demo</code></pre><p>Three independent processes. No model calls.</p></div><div class="install-card"><div class="code-header"><span>3. Connect your project</span><button class="copy-button" data-copy="init-command" type="button">Copy</button></div><pre><code id="init-command">project-relay init --project /path/to/repo</code></pre><p>Generates a separate MCP config for each agent.</p></div></div>
+      <div id="copy-status" class="sr-only" aria-live="polite"></div>
+      <p class="setup-note">Merge each generated config into its host's MCP settings. Agents check their inbox at task boundaries. <a href="https://github.com/MuhammadFarhantahirvoltic/project-relay/blob/main/docs/INTEGRATIONS.md">Read the integration guide <span aria-hidden="true">↗</span></a></p>
+    </section>
+
+    <section class="boundaries wrap" aria-labelledby="boundaries-title"><h2 id="boundaries-title">Small protocol.<br>Clear boundaries.</h2><div><p><b>Your host stays in control.</b> Relay does not invoke models, execute peer messages, deploy code, or wake idle editors automatically.</p><p><b>File claims coordinate; they do not lock your editor.</b> Use separate worktrees when useful. Peers still follow the user's permissions.</p><p><b>Local by design.</b> Project-scoped credentials and SQLite on one machine. This release is for cooperating agents under a trusted OS user.</p></div></section>
+
+    <section class="contribute wrap"><div><p class="eyebrow">BUILT IN THE OPEN</p><h2>Which harness should<br>we connect next?</h2><p>Bring an adapter, a reproducible bug, or a real workflow.</p></div><a class="button primary" href="https://github.com/MuhammadFarhantahirvoltic/project-relay/discussions">Join the discussion <span aria-hidden="true">↗</span></a></section>
+  </main>
+  <footer class="wrap"><span class="brand"><img src="assets/mark.svg" width="24" height="24" alt="">project relay</span><div><a href="https://github.com/MuhammadFarhantahirvoltic/project-relay">Source</a><a href="https://github.com/MuhammadFarhantahirvoltic/project-relay/blob/main/docs/PROTOCOL.md">Protocol</a><a href="https://github.com/MuhammadFarhantahirvoltic/project-relay/blob/main/LICENSE">MIT License</a></div><p>Independent project. Not affiliated with the model or editor vendors.</p></footer>
+</body>
+</html>

@@ -1,0 +1,23 @@
+name: Bug report
+description: Report a reproducible coordination or integration problem.
+title: "[Bug]: "
+body:
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: OS, Node version, harness, and transport. Do not include credentials.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction
+      description: Minimal steps, expected behavior, and actual result. Sanitize all project data.
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Sanitized evidence
+      description: Relevant error codes or logs. Never attach identity files or databases.

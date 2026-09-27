@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Protocol and setup questions
+    url: https://github.com/MuhammadFarhantahirvoltic/project-relay/discussions
+    about: Ask questions and share harness integrations.

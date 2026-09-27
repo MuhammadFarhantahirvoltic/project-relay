@@ -1,0 +1,14 @@
+node_modules/
+dist/
+.relay/
+*.sqlite*
+*.identity.json
+__pycache__/
+.DS_Store
+LOCAL-SETUP.md
+artifacts/
+*.tgz
+*.cast
+.env
+.env.*
+!.env.example

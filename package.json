@@ -1,0 +1,38 @@
+{
+  "name": "project-relay",
+  "version": "0.1.0",
+  "license": "MIT",
+  "description": "A local, model-independent project coordination protocol over MCP and HTTP.",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MuhammadFarhantahirvoltic/project-relay.git"
+  },
+  "homepage": "https://muhammadfarhantahirvoltic.github.io/project-relay/",
+  "bugs": { "url": "https://github.com/MuhammadFarhantahirvoltic/project-relay/issues" },
+  "keywords": ["mcp", "mcp-server", "agents", "multi-agent", "claude", "deepseek", "gemini", "coordination"],
+  "files": ["dist/*.js", "dist/*.d.ts", "dist/*.js.map", "examples/harness_adapter.py", "docs/PROTOCOL.md", "docs/INTEGRATIONS.md", "LICENSE"],
+  "bin": {
+    "project-relay": "dist/cli.js"
+  },
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "scripts": {
+    "build": "tsc && node scripts/postbuild.mjs",
+    "check": "tsc --noEmit",
+    "test": "npm run build && node --test --test-concurrency=1 dist/test/*.test.js",
+    "demo": "npm run build && node dist/demo.js",
+    "start": "node dist/cli.js",
+    "prepack": "npm run build"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/server": "2.1.0",
+    "@modelcontextprotocol/client": "2.1.0",
+    "zod": "4.4.3"
+  },
+  "devDependencies": {
+    "@types/node": "^22.19.0",
+    "typescript": "^5.9.3"
+  }
+}
