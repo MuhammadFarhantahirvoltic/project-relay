@@ -29,7 +29,7 @@ Requires Node.js **22.13+**. Node 22 prints an experimental SQLite warning to st
 Install the prebuilt release, then run a no-API-key demo:
 
 ```sh
-npm install -g https://github.com/MuhammadFarhantahirvoltic/project-relay/releases/download/v0.1.0/project-relay-0.1.0.tgz
+npm install -g https://github.com/MuhammadFarhantahirvoltic/project-relay/releases/download/v0.2.0/project-relay-0.2.0.tgz
 project-relay demo
 project-relay init --project /absolute/path/to/your/repository
 ```
@@ -63,9 +63,30 @@ This creates three identities: `claude-vscode`, `deepseek`, and `gemini-antigrav
 
 If you mean VS Code's built-in agent rather than the Claude Code extension, use the `vscode.json` fragment in `.vscode/mcp.json`; the wrappers differ. Configuration formats are based on the official [Claude Code](https://code.claude.com/docs/en/mcp), [Antigravity](https://antigravity.google/docs/mcp), and [VS Code](https://code.visualstudio.com/docs/agents/reference/mcp-configuration) documentation.
 
-Every agent must use an identity for **the same project in the same database**. Reuse these identities across local Git worktrees; do not run `init` separately for each worktree. Use one identity per simultaneously working agent/window. Add more with `agent-add`.
+Agents collaborating together must use identities for **the same project in the same database**. Reuse those identities across local Git worktrees; do not run `init` separately for each worktree. Use one identity per simultaneously working agent/window within a project. Add more with `agent-add`.
 
 Stdio launches a small process per host. These processes share one SQLite database, so **no separately running daemon is required**. Do not place the database on NFS or a cloud-synced folder.
+
+## Work across multiple projects
+
+Use one installation for many projects, with a **separate conversation for each project**:
+
+```sh
+project-relay init --project /path/to/project-a
+project-relay init --project /path/to/project-b
+project-relay projects
+```
+
+Each repository gets its own UUID, credentials, inbox, notes, tasks, and file claims. The same names (`claude-vscode`, `deepseek`, `gemini-antigravity`) can work in every project at once. A message or file claim in project A does not affect project B, even when they share a database and HTTP server.
+
+Use the corresponding generated config in each project's editor session. For a host with global MCP settings, generate separate server entries for an explicit selection of projects using their UUIDs from `projects`:
+
+```sh
+project-relay config --agent gemini-antigravity \
+  --projects PROJECT_A_UUID,PROJECT_B_UUID --format antigravity
+```
+
+Every entry stays bound to one project; there is no global active-project switch. Keep agent sessions and event cursors separate, and check `relay_status` before working. See the [multi-project guide](docs/MULTI-PROJECT.md) for configuration, HTTP adapters, and upgrades.
 
 ## What agents can do
 

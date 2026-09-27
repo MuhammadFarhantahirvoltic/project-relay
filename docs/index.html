@@ -17,13 +17,13 @@
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="assets/mark.svg" type="image/svg+xml">
   <link rel="stylesheet" href="style.css">
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareSourceCode","name":"Project Relay","description":"Project coordination protocol and MCP server for independent coding agents.","codeRepository":"https://github.com/MuhammadFarhantahirvoltic/project-relay","license":"https://opensource.org/license/mit","programmingLanguage":"TypeScript","runtimePlatform":"Node.js 22.13+","version":"0.1.0"}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareSourceCode","name":"Project Relay","description":"Project coordination protocol and MCP server for independent coding agents.","codeRepository":"https://github.com/MuhammadFarhantahirvoltic/project-relay","license":"https://opensource.org/license/mit","programmingLanguage":"TypeScript","runtimePlatform":"Node.js 22.13+","version":"0.2.0"}</script>
   <script src="app.js" defer></script>
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
   <header class="nav wrap">
-    <a class="brand" href="#" aria-label="Project Relay home"><img src="assets/mark.svg" width="32" height="32" alt="">project relay<span class="version">v0.1</span></a>
+    <a class="brand" href="#" aria-label="Project Relay home"><img src="assets/mark.svg" width="32" height="32" alt="">project relay<span class="version">v0.2</span></a>
     <nav aria-label="Main navigation"><a href="#demo">Demo</a><a href="#setup">Quick start</a><a class="github-link" href="https://github.com/MuhammadFarhantahirvoltic/project-relay">GitHub <span aria-hidden="true">↗</span></a></nav>
   </header>
   <main id="main">
@@ -63,13 +63,13 @@
 
     <section class="setup-section wrap" id="setup" aria-labelledby="setup-title">
       <div class="setup-header"><div><p class="eyebrow">FROM ZERO TO THREE PEERS</p><h2 id="setup-title">Try the handoff.<br>Then bring your agents.</h2></div><p>Node.js 22.13+ · macOS / Linux<br>Python is optional for custom harnesses.</p></div>
-      <div class="install-card"><div class="code-header"><span>1. Install the prebuilt GitHub release</span><button class="copy-button" data-copy="install-command" type="button">Copy</button></div><pre><code id="install-command">npm install -g https://github.com/MuhammadFarhantahirvoltic/project-relay/releases/download/v0.1.0/project-relay-0.1.0.tgz</code></pre></div>
+      <div class="install-card"><div class="code-header"><span>1. Install the prebuilt GitHub release</span><button class="copy-button" data-copy="install-command" type="button">Copy</button></div><pre><code id="install-command">npm install -g https://github.com/MuhammadFarhantahirvoltic/project-relay/releases/download/v0.2.0/project-relay-0.2.0.tgz</code></pre></div>
       <div class="setup-grid"><div class="install-card"><div class="code-header"><span>2. Run the protocol demo</span><button class="copy-button" data-copy="demo-command" type="button">Copy</button></div><pre><code id="demo-command">project-relay demo</code></pre><p>Three independent processes. No model calls.</p></div><div class="install-card"><div class="code-header"><span>3. Connect your project</span><button class="copy-button" data-copy="init-command" type="button">Copy</button></div><pre><code id="init-command">project-relay init --project /path/to/repo</code></pre><p>Generates a separate MCP config for each agent.</p></div></div>
       <div id="copy-status" class="sr-only" aria-live="polite"></div>
       <p class="setup-note">Merge each generated config into its host's MCP settings. Agents check their inbox at task boundaries. <a href="https://github.com/MuhammadFarhantahirvoltic/project-relay/blob/main/docs/INTEGRATIONS.md">Read the integration guide <span aria-hidden="true">↗</span></a></p>
     </section>
 
-    <section class="boundaries wrap" aria-labelledby="boundaries-title"><h2 id="boundaries-title">Small protocol.<br>Clear boundaries.</h2><div><p><b>Your host stays in control.</b> Relay does not invoke models, execute peer messages, deploy code, or wake idle editors automatically.</p><p><b>File claims coordinate; they do not lock your editor.</b> Use separate worktrees when useful. Peers still follow the user's permissions.</p><p><b>Local by design.</b> Project-scoped credentials and SQLite on one machine. This release is for cooperating agents under a trusted OS user.</p></div></section>
+    <section class="boundaries wrap" aria-labelledby="boundaries-title"><h2 id="boundaries-title">Small protocol.<br>Clear boundaries.</h2><div><p><b>Your host stays in control.</b> Relay does not invoke models, execute peer messages, deploy code, or wake idle editors automatically.</p><p><b>File claims coordinate; they do not lock your editor.</b> Use separate worktrees when useful. Peers still follow the user's permissions.</p><p><b>Multiple projects, separate conversations.</b> Run one local relay for many repositories. Each keeps its own inbox, notes, tasks, and file claims. <a href="https://github.com/MuhammadFarhantahirvoltic/project-relay/blob/main/docs/MULTI-PROJECT.md">Set up multiple projects ↗</a></p></div></section>
 
     <section class="contribute wrap"><div><p class="eyebrow">BUILT IN THE OPEN</p><h2>Which harness should<br>we connect next?</h2><p>Bring an adapter, a reproducible bug, or a real workflow.</p></div><a class="button primary" href="https://github.com/MuhammadFarhantahirvoltic/project-relay/discussions">Join the discussion <span aria-hidden="true">↗</span></a></section>
   </main>

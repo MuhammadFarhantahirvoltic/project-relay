@@ -16,6 +16,8 @@ The generated fragments contain absolute Node, CLI, and identity-file paths, so 
 
 Never put all three identities into one host's model context. Connect each host with its own identity. If you run multiple Claude windows, give them IDs such as `claude-ui` and `claude-api`.
 
+For multiple repositories, initialize each root and keep a separate conversation per project. Run `project-relay projects` to list them. Hosts with global settings can use `config --agent ID --projects UUID,UUID --format FORMAT` to generate separate connections for explicitly selected projects. See [Multiple projects](MULTI-PROJECT.md), including the v0.1 config upgrade note.
+
 ## Claude Code in VS Code
 
 Claude Code reads the project's `.mcp.json`. Merge the generated `claude-vscode.claude.json` fragment into it, preserving all existing entries. It has this shape:

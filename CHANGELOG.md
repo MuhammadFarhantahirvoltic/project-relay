@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.2.0 — 2026-09-27
+
+- Added `projects` to list locally enrolled projects and active identity counts.
+- Added `config --agent ID --projects UUID,UUID` for explicit multi-project host configurations, with one separately authenticated MCP connection per project.
+- New config entry names include the complete UUID without hyphens, preventing short-prefix collisions. Existing identity files, databases, and v0.1 entries remain compatible.
+- Added a multi-project guide and project selection instructions for agents.
+- Expanded the suite to 25 tests, including six concurrent MCP processes across two projects, shared HTTP routing, and isolation of all coordination records.
+
+Project conversations remain separate. This release adds no cross-project messaging or global active-project switch; Project Relay Protocol remains 1.0.
+
 ## 0.1.0 — 2026-09-27
 
 First public release of Project Relay Protocol 1.0.

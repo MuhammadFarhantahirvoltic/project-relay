@@ -5,7 +5,7 @@ import { errorBody } from './errors.js';
 
 export function createMcpServer(store: Store, token: string, signal?: AbortSignal) {
   store.authenticate(token);
-  const server = new McpServer({ name: 'project-relay', version: '0.1.0' }, { instructions: AGENT_INSTRUCTIONS });
+  const server = new McpServer({ name: 'project-relay', version: '0.2.0' }, { instructions: AGENT_INSTRUCTIONS });
   for (const tool of TOOLS) {
     server.registerTool(tool.name, {
       description: tool.description,

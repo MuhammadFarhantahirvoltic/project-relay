@@ -43,5 +43,25 @@ export function clientConfig(identityFile: string, projectId: string, format: st
     command: process.execPath,
     args: [fileURLToPath(new URL('./cli.js', import.meta.url)), 'mcp', '--identity', resolve(identityFile)],
   };
-  return { [format === 'vscode' ? 'servers' : 'mcpServers']: { [`project-relay-${projectId.slice(0, 8)}`]: entry } };
+  // Keep the full UUID while leaving room for host-qualified tool names.
+  return { [format === 'vscode' ? 'servers' : 'mcpServers']: { [`relay-${projectId.replaceAll('-', '')}`]: entry } };
+}
+
+export function projectConfigs(state: string, agentId: string, projectIds: string[], format: string) {
+  requireThat(/^[a-z0-9][a-z0-9._-]{0,63}$/.test(agentId), 'INVALID_AGENT', 'Provide a valid agent ID.');
+  requireThat(projectIds.length > 0 && projectIds.length <= 100 && new Set(projectIds).size === projectIds.length
+    && projectIds.every(id => z.string().uuid().safeParse(id).success),
+  'INVALID_PROJECTS', 'Provide 1–100 distinct project UUIDs from the projects command.');
+  const entries: Record<string, unknown> = {};
+  for (const projectId of projectIds) {
+    const path = identityPath(state, projectId, agentId);
+    requireThat(existsSync(path), 'IDENTITY_MISSING', 'The agent needs an identity in every selected project. Run init or agent-add first.');
+    const { store, identity } = openIdentity(path);
+    try {
+      requireThat(identity.projectId === projectId && identity.agentId === agentId && identity.database === join(resolve(state), 'relay.sqlite'),
+        'IDENTITY_MISMATCH', 'An identity file does not match the selected project, agent, or state directory.');
+      Object.assign(entries, Object.values(clientConfig(path, projectId, format))[0]);
+    } finally { store.close(); }
+  }
+  return { [format === 'vscode' ? 'servers' : 'mcpServers']: entries };
 }
