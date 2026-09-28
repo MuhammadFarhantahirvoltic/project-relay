@@ -1,0 +1,12 @@
+{
+  "name": "project-relay-marketplace",
+  "description": "Project Relay tools for coordination between coding agents, with separate conversations for each project.",
+  "owner": { "name": "Muhammad Farhan Tahir" },
+  "plugins": [
+    {
+      "name": "project-relay",
+      "source": "./",
+      "description": "A shared project inbox and coordination tools for coding agents in different editors."
+    }
+  ]
+}

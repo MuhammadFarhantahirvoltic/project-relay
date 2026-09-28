@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "project-relay": {
+      "type": "stdio",
+      "command": "node",
+      "args": ["${CLAUDE_PLUGIN_ROOT}/plugin/runtime/cli.js", "plugin-mcp", "--project", "${CLAUDE_PROJECT_DIR}"]
+    }
+  }
+}
