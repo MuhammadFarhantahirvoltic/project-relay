@@ -38,6 +38,8 @@ For a custom state directory, several simultaneous Claude windows in one project
 
 ## What runs and where data goes
 
+Read the [privacy policy](../PRIVACY.md) for local storage, recipients, retention, deletion, and installation services.
+
 - Claude Code starts Node with the bundled CLI as a local stdio MCP server. No shell command, automatic setup hook, model API call, or public listener starts on install.
 - The host downloads the plugin from GitHub and its locked Node dependencies from the npm registry during installation. Relay itself makes no outbound network requests in plugin mode.
 - Explicit setup creates the SQLite database, project-scoped credentials, and connection fragments under `~/.project-relay`. Runtime reads those identities and stores only coordination data submitted through its tools. It does not scan your source files.
@@ -58,4 +60,6 @@ git diff --exit-code -- plugin/runtime
 
 The runtime is generated deterministically by `npm run build` from `src/`. Commit runtime changes with their source. Never commit dependencies, SQLite files, identities, `.relay`, or `artifacts`.
 
-Submit the public GitHub repository, plugin path `/` (the repository root), through [Claude's developer portal](https://claude.ai/directory/manage/new). Use **Plugin bundle**, validate the repository, address findings, then submit for review. The npm lockfile can trigger manual dependency review under the [directory checklist](https://claude.com/docs/plugins/pre-submission-checklist). Local CLI validation is not directory approval.
+Submit the public GitHub repository through [Claude's developer portal](https://claude.ai/directory/manage/new), leaving the optional plugin path empty for the repository root. Use **Plugin bundle**, validate the repository, address findings, then submit for review. The npm lockfile can trigger manual dependency review under the [directory checklist](https://claude.com/docs/plugins/pre-submission-checklist). Local CLI validation is not directory approval.
+
+Reviewer context: the HTTP integration tests generate temporary Relay credentials and send them only to a loopback test server. The hostile Origin and Host headers are negative tests asserting rejection; they do not change the network destination. The social-card Python script generates a public marketing image and is not invoked by the plugin's MCP declaration, skills, installation, or hooks. Plugin mode has no outbound HTTP behavior. These source files may trigger automated review findings because the complete source repository is shipped.

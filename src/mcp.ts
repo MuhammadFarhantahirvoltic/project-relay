@@ -11,7 +11,7 @@ export function createMcpServer(store: Store, token: string, signal?: AbortSigna
 // A plugin can expose its tools before enrollment. The resolver binds once,
 // after explicit CLI setup; tool arguments can never change that connection.
 export function createBoundMcpServer(connection: () => { store: Store; token: string }, signal?: AbortSignal) {
-  const server = new McpServer({ name: 'project-relay', version: '0.3.0' }, { instructions: AGENT_INSTRUCTIONS });
+  const server = new McpServer({ name: 'project-relay', version: '0.3.1' }, { instructions: AGENT_INSTRUCTIONS });
   for (const tool of TOOLS) {
     server.registerTool(tool.name, {
       description: tool.description,

@@ -1,6 +1,6 @@
 {
   "name": "project-relay",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Coordinate coding agents across editors with a shared inbox, notes, tasks, and handoffs. Separate conversations for every project.",
   "author": {
     "name": "Muhammad Farhan Tahir",
@@ -9,5 +9,12 @@
   "homepage": "https://muhammadfarhantahirvoltic.github.io/project-relay/",
   "repository": "https://github.com/MuhammadFarhantahirvoltic/project-relay",
   "license": "MIT",
-  "keywords": ["agent-coordination", "coding", "collaboration", "mcp", "multi-project", "handoff"]
+  "keywords": [
+    "agent-coordination",
+    "coding",
+    "collaboration",
+    "mcp",
+    "multi-project",
+    "handoff"
+  ]
 }
