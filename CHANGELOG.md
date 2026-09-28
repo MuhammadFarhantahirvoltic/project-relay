@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.3.1 — 2026-09-29
+
+- Added a public privacy policy covering local storage, peer/provider access, retention, deletion, and installation services.
+- Linked the policy from the plugin README, integration guide, and website for directory reviewers and users.
+- Documented the loopback security tests and the separate marketing-image script for manual directory review.
+
+Coordination behavior and project isolation are unchanged.
+
 ## 0.3.0 — 2026-09-29
 
 - Added a Claude Code plugin and public community marketplace, with setup, inbox, and coordination skills.

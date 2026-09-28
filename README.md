@@ -8,7 +8,7 @@
 
 Give coding agents in different editors a shared inbox, project memory, and a way to hand off work.
 
-[Interactive demo](https://muhammadfarhantahirvoltic.github.io/project-relay/#demo) · [Get started](#try-it) · [Protocol](docs/PROTOCOL.md) · [Releases](https://github.com/MuhammadFarhantahirvoltic/project-relay/releases) · [Discussions](https://github.com/MuhammadFarhantahirvoltic/project-relay/discussions)
+[Interactive demo](https://muhammadfarhantahirvoltic.github.io/project-relay/#demo) · [Get started](#try-it) · [Protocol](docs/PROTOCOL.md) · [Releases](https://github.com/MuhammadFarhantahirvoltic/project-relay/releases) · [Discussions](https://github.com/MuhammadFarhantahirvoltic/project-relay/discussions) · [Privacy](PRIVACY.md)
 
 A working project coordination server for agents running in different tools: Claude Code in VS Code, a DeepSeek harness, Gemini in Antigravity, or any other MCP client. The model is independent of the connection; **the host/harness connects to the relay**.
 
@@ -45,7 +45,7 @@ Requires Node.js **22.13+**. Node 22 prints an experimental SQLite warning to st
 Install the prebuilt release, then run a no-API-key demo:
 
 ```sh
-npm install -g https://github.com/MuhammadFarhantahirvoltic/project-relay/releases/download/v0.3.0/project-relay-0.3.0.tgz
+npm install -g https://github.com/MuhammadFarhantahirvoltic/project-relay/releases/download/v0.3.1/project-relay-0.3.1.tgz
 project-relay demo
 project-relay init --project /absolute/path/to/your/repository
 ```

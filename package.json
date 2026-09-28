@@ -1,6 +1,6 @@
 {
   "name": "project-relay",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "license": "MIT",
   "description": "A local, model-independent project coordination protocol over MCP and HTTP.",
   "type": "module",
@@ -31,7 +31,8 @@
     "docs/INTEGRATIONS.md",
     "LICENSE",
     "docs/MULTI-PROJECT.md",
-    "docs/CLAUDE-PLUGIN.md"
+    "docs/CLAUDE-PLUGIN.md",
+    "PRIVACY.md"
   ],
   "bin": {
     "project-relay": "dist/cli.js"
