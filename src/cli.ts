@@ -6,7 +6,8 @@ import { parseArgs } from 'node:util';
 import { serveStdio } from '@modelcontextprotocol/server/stdio';
 import { Store } from './store.js';
 import { AGENT_INSTRUCTIONS, dispatch, toolCatalog } from './tools.js';
-import { createMcpServer } from './mcp.js';
+import { createBoundMcpServer, createMcpServer } from './mcp.js';
+import { projectConnection } from './plugin.js';
 import { startHttp } from './http.js';
 import { clientConfig, identityPath, openIdentity, privateWrite, projectConfigs } from './setup.js';
 import { errorBody, requireThat } from './errors.js';
@@ -20,6 +21,7 @@ const HELP = `Project Relay — shared project coordination for independent agen
   config     --identity FILE [--format claude|antigravity|vscode|generic]
   config     --agent ID --projects UUID,UUID [--format claude|antigravity|vscode|generic] [--state DIR]
   mcp        --identity FILE
+  plugin-mcp --project PATH [--agent claude-code] [--state DIR]
   serve      [--state DIR] [--port 7331]
   call       --identity FILE --tool relay_status [--input '{}']
   watch      --identity FILE [--after 0]
@@ -49,6 +51,7 @@ async function main() {
     init: ['project', 'name', 'agents', 'state'], projects: ['state'], 'agent-add': ['project-id', 'agent', 'rotate', 'state'],
     revoke: ['project-id', 'agent', 'state'], config: ['identity', 'format', 'agent', 'projects', 'state'], mcp: ['identity'],
     serve: ['state', 'port'], call: ['identity', 'tool', 'input'], watch: ['identity', 'after'], catalog: [], demo: [],
+    'plugin-mcp': ['project', 'agent', 'state'],
   };
   requireThat(allowed[command], 'INVALID_COMMAND', 'Unknown command. Run with --help.');
   for (const option of Object.keys(values)) requireThat(allowed[command]!.includes(option), 'INVALID_ARGUMENT', `--${option} is not valid for ${command}.`);
@@ -58,6 +61,18 @@ async function main() {
   const state = resolve(values.state ?? join(homedir(), '.project-relay'));
   if (command === 'catalog') { print(toolCatalog()); return; }
   if (command === 'demo') { await (await import('./demo.js')).runDemo(); return; }
+  if (command === 'plugin-mcp') {
+    const connection = projectConnection(need('project'), state, values.agent ?? 'claude-code');
+    const abort = new AbortController();
+    const server = serveStdio(() => createBoundMcpServer(connection.get, abort.signal), {
+      onerror: () => process.stderr.write('Project Relay MCP transport error.\n'),
+    });
+    let stopping = false;
+    const shutdown = async () => { if (stopping) return; stopping = true; abort.abort(); await server.close(); connection.close(); };
+    process.stdin.once('end', () => { void shutdown(); });
+    process.once('SIGINT', () => { void shutdown(); }); process.once('SIGTERM', () => { void shutdown(); });
+    return;
+  }
   if (command === 'projects') {
     const database = join(state, 'relay.sqlite');
     if (!existsSync(database)) { print({ state, projects: [] }); return; }

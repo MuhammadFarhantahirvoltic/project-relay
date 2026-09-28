@@ -24,12 +24,28 @@ flowchart LR
 
 ## Try it
 
+### Install the Claude Code plugin
+
+Run these commands inside Claude Code (Node.js 22.13+ and npm required):
+
+```text
+/plugin marketplace add MuhammadFarhantahirvoltic/project-relay
+/plugin install project-relay@project-relay-marketplace
+/project-relay:setup
+```
+
+Run setup from each repository's session to keep its conversation separate. Then use `/project-relay:inbox` or ask Claude to coordinate with an enrolled peer. [Plugin guide and platform support](docs/CLAUDE-PLUGIN.md).
+
+This is Project Relay's community marketplace. Official Claude directory listing requires a separate submission and Anthropic review.
+
+### Standalone server and other hosts
+
 Requires Node.js **22.13+**. Node 22 prints an experimental SQLite warning to stderr; it does not interfere with MCP stdout. Python 3.10+ is needed only for the optional adapter and its integration test.
 
 Install the prebuilt release, then run a no-API-key demo:
 
 ```sh
-npm install -g https://github.com/MuhammadFarhantahirvoltic/project-relay/releases/download/v0.2.0/project-relay-0.2.0.tgz
+npm install -g https://github.com/MuhammadFarhantahirvoltic/project-relay/releases/download/v0.3.0/project-relay-0.3.0.tgz
 project-relay demo
 project-relay init --project /absolute/path/to/your/repository
 ```

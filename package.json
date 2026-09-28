@@ -1,6 +1,6 @@
 {
   "name": "project-relay",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "license": "MIT",
   "description": "A local, model-independent project coordination protocol over MCP and HTTP.",
   "type": "module",
@@ -30,7 +30,8 @@
     "docs/PROTOCOL.md",
     "docs/INTEGRATIONS.md",
     "LICENSE",
-    "docs/MULTI-PROJECT.md"
+    "docs/MULTI-PROJECT.md",
+    "docs/CLAUDE-PLUGIN.md"
   ],
   "bin": {
     "project-relay": "dist/cli.js"
@@ -39,7 +40,7 @@
     "node": ">=22.13.0"
   },
   "scripts": {
-    "build": "tsc && node scripts/postbuild.mjs",
+    "build": "tsc && node scripts/postbuild.mjs && node scripts/build-plugin.mjs",
     "check": "tsc --noEmit",
     "test": "npm run build && node --test --test-concurrency=1 dist/test/*.test.js",
     "demo": "npm run build && node dist/demo.js",

@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.3.0 — 2026-09-29
+
+- Added a Claude Code plugin and public community marketplace, with setup, inbox, and coordination skills.
+- Added a project-bound plugin MCP connection. It exposes tools before enrollment, starts working after explicit setup without a restart, and never switches to another project's conversation.
+- Bundled readable runtime JavaScript and a pinned dependency lockfile for installation without a build step.
+- Added regression tests for plugin setup, simultaneous project isolation, invalid host paths, and mismatched or revoked identities.
+
+The plugin targets Claude Code. Official Claude directory review and publication are separate from the community marketplace release. Protocol 1.0 and existing identity files remain compatible.
+
 ## 0.2.0 — 2026-09-27
 
 - Added `projects` to list locally enrolled projects and active identity counts.
